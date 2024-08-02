@@ -19,8 +19,7 @@ export function DialogDemo({children}:{children:ReactNode}) {
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+Hello          </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -39,7 +38,6 @@ export function DialogDemo({children}:{children:ReactNode}) {
             </label>
             <input
               id="username"
-              defaultValue="@peduarte"
               className="col-span-3"
             />
           </div>
