@@ -3,7 +3,7 @@ import { dataType } from "@/types";
 
 export default async function getAllItemsByUserid(userid: string | undefined): Promise<dataType[]> {
   try {
-    const res = await fetch(`http://localhost:3000/api/crud/?userid=${userid}`);
+    const res = await fetch(`https://shahmir-pantry-tracker.vercel.app/api/crud/?userid=${userid}`);
     if (!res.ok) {
       throw new Error("Failed to fetch items");
     }
@@ -32,7 +32,7 @@ export async function addItem({
     quantity:quantity,
     itemid: itemid
     }
- const res = await fetch(`http://localhost:3000/api/crud/`,{
+ const res = await fetch(`https://shahmir-pantry-tracker.vercel.app/api/crud/`,{
     method:"POST",
     headers: {
         "Content-Type": "application/json"
@@ -43,23 +43,6 @@ export async function addItem({
 }
 
 
-// export async function editItem(userid:string|undefined,item:string,quantity:number){
-//   const payload = {
-//       userid:userid,
-//       items:item,
-//      quantity:quantity
-//   }
-//   console.log("Edit Payload :",payload);
-// const res = await fetch(`http://localhost:3000/api/crud/`,{
-//     method:"PUT",
-//     headers:{
-//     "Content-Type": "application/json"
-//     },
-//     body:JSON.stringify(payload)
-// })
-
-// return "Okay"
-// }
 export async function editItem({
   userid,
   items,
@@ -78,7 +61,7 @@ export async function editItem({
     quantity: quantity
   };
   console.log("Edit Payload:", payload);
-  const res = await fetch(`http://localhost:3000/api/crud/`, {
+  const res = await fetch(`https://shahmir-pantry-tracker.vercel.app/api/crud/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -102,7 +85,7 @@ export async function deleteItem({
   items: string
   quantity: number
   itemid: string}){
- const res = await fetch(`http://localhost:3000/api/crud/?userid=${userid}&itemid=${itemid}&items=${items}&quantity=${quantity}`,{
+ const res = await fetch(`https://shahmir-pantry-tracker.vercel.app/api/crud/?userid=${userid}&itemid=${itemid}&items=${items}&quantity=${quantity}`,{
     method: "DELETE"
     
  })
