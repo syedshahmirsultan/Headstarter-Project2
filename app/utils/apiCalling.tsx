@@ -1,6 +1,6 @@
 
 
-export default async function getAllItemsByUserid(userid:string){
+export default async function getAllItemsByUserid(userid:string|undefined){
 const res = await fetch(`http://localhost:3000/api/crud?userid=${userid}`,{
     cache:"no-store"
 })

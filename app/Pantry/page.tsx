@@ -4,11 +4,14 @@ import TaskList from "../Components/TaskList";
 import  Link  from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
+import getAllItemsByUserid from "../utils/apiCalling";
+import { dataType } from "@/types";
 
 
 export default async function Pantry() {
   const {getUser} = getKindeServerSession();
   const user:KindeUser|null = await getUser();
+  const itemData:Array<dataType> = await getAllItemsByUserid(user?.id);
   return (
     <div className="w-full">
     { user ?  (
@@ -18,7 +21,7 @@ export default async function Pantry() {
 )} <div className="w-full p-2 flex flex-col items-center md:p-0 mt-20 md:mt-24 md:max-w-6xl h-full md:mx-auto">
     <h1 className="text-3xl md:text-5xl text-center font-extrabold text-gray-950 tracking-wide"> Shahmir Pantry Tracker</h1>
     <AddDialog user={user}/>
-    <TaskList user={user}/>
+    <TaskList user={user} itemData={itemData}/>
    </div></div>
   );
 }
