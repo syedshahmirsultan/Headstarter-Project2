@@ -8,17 +8,17 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-  import { ReactNode } from "react"
+import { FiEdit } from "react-icons/fi";
   
-   function AddDialog({children}:{children:ReactNode}) {
+   function AddDialog() {
     return (
       <Dialog>
         <DialogTrigger asChild>
-        {children}
-        </DialogTrigger>
+        <FiEdit color="blue" className="  cursor-pointer mt-2 md:mt-0 text-xl md:text-[27px]" />    
+            </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-purple-700">Edit Task</DialogTitle>
+            <DialogTitle className="text-2xl font-bold text-blue-700">Edit Task</DialogTitle>
           
           </DialogHeader>
           <form className="grid gap-4 py-4">

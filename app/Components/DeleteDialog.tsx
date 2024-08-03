@@ -10,41 +10,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { FaRegTrashAlt } from "react-icons/fa"
 
 
-export function DialogCloseButton() {
+function DeleteDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button>Share</button>
+      <FaRegTrashAlt color="red" className=" cursor-pointer mt-2 md:mt-0 text-xl md:text-[27px]"/>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Share link</DialogTitle>
-          <DialogDescription>
-            Anyone who has this link will be able to view this.
-          </DialogDescription>
+          <DialogTitle className="text-red-600 text-2xl font-semibold">Delete Task</DialogTitle>
+          <DialogDescription className="text-lg text-gray-950 font-medium">
+Are you sure you want to delete this task    ?
+    </DialogDescription>
         </DialogHeader>
-        <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2">
-            <label htmlFor="link" className="sr-only">
-              Link
-            </label>
-            <input
-              id="link"
-              defaultValue="https://ui.shadcn.com/docs/installation"
-              readOnly
-            />
-          </div>
-          <button type="submit"  className="px-3">
-            <span className="sr-only">Copy</span>
-            <Copy className="h-4 w-4" />
-          </button>
-        </div>
+        
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
-            <button type="button">
-              Close
+            <button type="submit" className="px-4 py-2 rounded-md self-end bg-red-600 text-center flex justify-center items-center text-white font-semibold text-md hover:bg-red-500">
+              Yes
             </button>
           </DialogClose>
         </DialogFooter>
@@ -52,3 +38,6 @@ export function DialogCloseButton() {
     </Dialog>
   )
 }
+
+
+export default DeleteDialog;
