@@ -1,7 +1,7 @@
 
 export interface dataType{
 userid:string;
-item:string;
+items:string;
 quantity:number
 }
 

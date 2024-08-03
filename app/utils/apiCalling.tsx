@@ -1,4 +1,3 @@
-// utils/apiCalling.ts
 
 import { dataType } from "@/types";
 
@@ -20,7 +19,7 @@ export default async function getAllItemsByUserid(userid: string | undefined): P
 export async function addItem(userid:string|undefined,item:string,quantity:number){
     const payload = {
     userid :userid,
-    item:item,
+    items:item,
     quantity:quantity
     }
  const res = await fetch(`http://localhost:3000/api/crud/`,{
@@ -35,24 +34,26 @@ export async function addItem(userid:string|undefined,item:string,quantity:numbe
 
 
 export async function editItem(userid:string|undefined,item:string,quantity:number){
+  const payload = {
+      userid:userid,
+      items:item,
+     quantity:quantity
+  }
 const res = await fetch(`http://localhost:3000/api/crud/`,{
     method:"PUT",
     headers:{
     "Content-Type": "application/json"
     },
-    body:JSON.stringify({
-        userid:userid,
-        item:item,
-       quantity:quantity
-    })
+    body:JSON.stringify(payload)
 })
 
-return "Okay"
+return "Okay !"
 }
 
 
 export async function deleteItem(userid:string|undefined,item:string,quantity:number){
  const res = await fetch(`http://localhost:3000/api/crud/?userid=${userid}&item=${item}&quantity=${quantity}`,{
     method: "DELETE"
+    
  })
 }

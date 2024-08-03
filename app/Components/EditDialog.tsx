@@ -10,8 +10,8 @@ import {
 import { useRouter } from "next/navigation";
 import { FormEventHandler, useState } from "react";
 import { FiEdit } from "react-icons/fi";
-import { editItem } from "../utils/apiCalling";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
+import { editItem } from "../utils/apiCalling";
 
 function EditDialog({ user, item, quantity }: { user: KindeUser | null; item: string; quantity: number }) {
   const [itemName, setItemName] = useState(item);
@@ -20,12 +20,10 @@ function EditDialog({ user, item, quantity }: { user: KindeUser | null; item: st
 
   const handleEditItem: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if (user) {
-      await editItem(user.id, itemName, itemQuantity);
+      await editItem(user?.id, itemName, itemQuantity);
       setItemName("");
-      setItemQuantity(1); 
       router.refresh(); 
-    }
+    
   };
 
   return (

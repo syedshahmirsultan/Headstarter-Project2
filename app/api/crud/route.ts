@@ -23,20 +23,20 @@ export async function GET(request: NextRequest) {
 }
 
 
-async function POST(req:NextRequest){
+export async function POST(req:NextRequest){
  const body = await req.json();
 
  const alreadyItem = await db.select().from(pantryTrackerTable).where(and(eq(pantryTrackerTable.userid,body.userid)
- ,eq(pantryTrackerTable.item,body.item),eq(pantryTrackerTable.quantity,body.quantity)))
+ ,eq(pantryTrackerTable.items,body.items),eq(pantryTrackerTable.quantity,body.quantity)))
 
    if(alreadyItem.length > 0){
     const updatedData = {
       userid :body.userid,
-      item:body.item,
+      items:body.items,
       quantity:body.quantity as number + 1
     }
 
-    await db.update(pantryTrackerTable).set(updatedData).where(and(eq(pantryTrackerTable.userid,body.userid),eq(pantryTrackerTable.item,body.item),eq(pantryTrackerTable.quantity,body.quantity)));
+    await db.update(pantryTrackerTable).set(updatedData).where(and(eq(pantryTrackerTable.userid,body.userid),eq(pantryTrackerTable.items,body.items),eq(pantryTrackerTable.quantity,body.quantity)));
    }
 
    else {      
@@ -48,40 +48,40 @@ async function POST(req:NextRequest){
 
 
 
-export async function PUT(req:NextRequest){
-  const body = await req.json()
-  await db.update(pantryTrackerTable).set(body).where(
-    and(eq(pantryTrackerTable.userid,body.userid),
-        eq(pantryTrackerTable.item,body.item)
-)
-);
-}
+// export async function PUT(req:NextRequest){
+//   const body = await req.json()
+//   const data = await db.update(pantryTrackerTable).set(body).where(
+//     and(eq(pantryTrackerTable.userid,body.userid),
+//         eq(pantryTrackerTable.items,body.items),eq(pantryTrackerTable.quantity,body.quantity)
+// )
+// );
+
+// return NextResponse.json(data);
 
 
-// export async function DELETE(request: NextRequest) {
-//   try {
-//     const url = request.nextUrl.searchParams;
-//     const userid = url.get('userid');
-//     const item = url.get('item');
-//     const quantity = url.get('quantity')
-
-//     if (!userid || !item || !quantity) {
-//       return NextResponse.json({ message: "Userid or item not provided!" }, { status: 400 });
-//     }
-
-//     await db
-//       .delete(pantryTrackerTable)
-//       .where(
-//         and(eq(pantryTrackerTable.userid, userid), eq(pantryTrackerTable.item, item), eq(pantryTrackerTable.quantity, quantity))
-//       );
-
-//     return NextResponse.json({ message: "Item deleted successfully." });
-//   } catch (error) {
-//     console.error("Error deleting item:", error);
-//     return NextResponse.json({ message: "Error deleting item." }, { status: 500 });
-//   }
 // }
 
+
+
+export async function PUT(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { userid, items, quantity } = body;
+
+    const data = await db.update(pantryTrackerTable)
+      .set({ items, quantity })
+      .where(
+        and(
+          eq(pantryTrackerTable.userid, userid),
+          eq(pantryTrackerTable.items, items)
+        )
+      );
+
+    return NextResponse.json({ message: 'Item updated successfully', data });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to update item' }, { status: 500 });
+  }
+}
 
 
 
@@ -89,10 +89,10 @@ export async function DELETE(request: NextRequest) {
   try {
     const url = request.nextUrl.searchParams;
     const userid = url.get('userid');
-    const item = url.get('item');
+    const items = url.get('items');
     const quantityStr = url.get('quantity');
 
-    if (!userid || !item || !quantityStr) {
+    if (!userid || !items || !quantityStr) {
       return NextResponse.json({ message: "Userid, item, or quantity not provided!" }, { status: 400 });
     }
 
@@ -107,7 +107,7 @@ export async function DELETE(request: NextRequest) {
       .where(
         and(
           eq(pantryTrackerTable.userid, userid),
-          eq(pantryTrackerTable.item, item),
+          eq(pantryTrackerTable.items, items),
           eq(pantryTrackerTable.quantity, quantity)
         )
       );
