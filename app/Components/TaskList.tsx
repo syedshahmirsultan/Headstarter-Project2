@@ -1,14 +1,15 @@
 import EditDialog from "./EditDialog";
 import DeleteDialog from "./DeleteDialog";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 const data = [
-  { item: "Apple", quantity: "1" },
-  { item: "item 2", quantity: "1" },
-  { item: "item 3", quantity: "1" },
+  { item: "Apple", quantity: 1 },
+  { item: "item 2", quantity: 1 },
+  { item: "item 3", quantity: 1 },
 ];
 
-async function TaskList() {
+async function TaskList({user}:{user:KindeUser|null}) {
 
   return (
     <div className="mt-2 mx-auto w-[300px] md:w-[850px]">
@@ -29,8 +30,8 @@ async function TaskList() {
               <td className="p-1 md:p-3 flex items-center justify-center ">{item.item}</td>
               <td className="p-1 md:p-3 text-center">{item.quantity}</td>
               <td className="p-1 md:p-3 flex items-center justify-center gap-x-2">
-               <EditDialog/>
-               <DeleteDialog/>
+               <EditDialog user={user} item={item.item} quantity={item.quantity}/>
+               <DeleteDialog user={user} item={item.item} quantity={item.quantity}/>
               </td>
             </tr>
           ))}

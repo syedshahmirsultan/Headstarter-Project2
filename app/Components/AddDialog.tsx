@@ -1,3 +1,4 @@
+"use client"
 import {
   Dialog,
   DialogContent,
@@ -7,9 +8,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { ReactNode } from "react"
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
+import { useRouter } from "next/navigation";
+import { FormEventHandler, ReactNode, useState } from "react"
+import { addItem } from "../utils/apiCalling";
 
- function AddDialog() {
+ async function AddDialog({user}:{user:KindeUser|null}) {
+  const [newTask,setNewTask] = useState("");
+  const [quantity,setQuantity] = useState(1);
+  const router = useRouter();
+
+   const handleAddItem: FormEventHandler<HTMLFormElement>  = async(e)=> {
+    e.preventDefault();
+    await addItem(user?.id,newTask,quantity);
+    setNewTask("");
+    setQuantity(1);
+    router.refresh();
+ 
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -22,13 +38,15 @@ import { ReactNode } from "react"
           <DialogTitle className="text-2xl font-bold text-blue-700">Add New Task</DialogTitle>
         
         </DialogHeader>
-        <form className="grid gap-4 py-4">
+        <form onSubmit={handleAddItem} className="grid gap-4 py-4">
           <div className="flex gap-x-2 md:gap-x-4 mt-4">
             <label htmlFor="name" className="text-gray-950 text-md md:text-lg font-semibold whitespace-nowrap">
  ItemName :
             </label>
             <input
               placeholder={'Item Name ...'}
+              value={newTask}
+              onChange={(e)=> setNewTask(e.target.value)}
               required
               className="outline-gray-950 w-[215px] md:w-[260px] h-8 text-center border border-gray-950 rounded-md"
             />
@@ -40,6 +58,8 @@ import { ReactNode } from "react"
             <input
               type="number"
               defaultValue={1}
+              value={quantity}
+              onChange={(e)=>setQuantity(Number(e.target.value))}
               placeholder="123"
               className="outline-gray-950 w-[215px] md:w-[260px] h-8 text-center border border-gray-950 rounded-md"
               required

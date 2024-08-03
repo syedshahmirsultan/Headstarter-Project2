@@ -11,9 +11,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { FaRegTrashAlt } from "react-icons/fa"
+import { FormEventHandler } from "react"
+import { deleteItem } from "../utils/apiCalling"
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types"
 
 
-function DeleteDialog() {
+async function DeleteDialog({user,item,quantity}:{user:KindeUser|null,item:string,quantity:number}) {
+ const handleDelete: FormEventHandler<HTMLFormElement> = async(e)=> {
+e.preventDefault();
+
+await deleteItem(user?.id,item,quantity)
+ }
   return (
     <Dialog>
       <DialogTrigger asChild>

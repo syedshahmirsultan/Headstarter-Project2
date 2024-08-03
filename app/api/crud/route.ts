@@ -58,20 +58,58 @@ export async function PUT(req:NextRequest){
 }
 
 
+// export async function DELETE(request: NextRequest) {
+//   try {
+//     const url = request.nextUrl.searchParams;
+//     const userid = url.get('userid');
+//     const item = url.get('item');
+//     const quantity = url.get('quantity')
+
+//     if (!userid || !item || !quantity) {
+//       return NextResponse.json({ message: "Userid or item not provided!" }, { status: 400 });
+//     }
+
+//     await db
+//       .delete(pantryTrackerTable)
+//       .where(
+//         and(eq(pantryTrackerTable.userid, userid), eq(pantryTrackerTable.item, item), eq(pantryTrackerTable.quantity, quantity))
+//       );
+
+//     return NextResponse.json({ message: "Item deleted successfully." });
+//   } catch (error) {
+//     console.error("Error deleting item:", error);
+//     return NextResponse.json({ message: "Error deleting item." }, { status: 500 });
+//   }
+// }
+
+
+
+
 export async function DELETE(request: NextRequest) {
   try {
     const url = request.nextUrl.searchParams;
     const userid = url.get('userid');
     const item = url.get('item');
+    const quantityStr = url.get('quantity');
 
-    if (!userid || !item) {
-      return NextResponse.json({ message: "Userid or item not provided!" }, { status: 400 });
+    if (!userid || !item || !quantityStr) {
+      return NextResponse.json({ message: "Userid, item, or quantity not provided!" }, { status: 400 });
+    }
+
+    // Convert quantity to a number
+    const quantity = parseInt(quantityStr, 10);
+    if (isNaN(quantity)) {
+      return NextResponse.json({ message: "Invalid quantity!" }, { status: 400 });
     }
 
     await db
       .delete(pantryTrackerTable)
       .where(
-        and(eq(pantryTrackerTable.userid, userid), eq(pantryTrackerTable.item, item))
+        and(
+          eq(pantryTrackerTable.userid, userid),
+          eq(pantryTrackerTable.item, item),
+          eq(pantryTrackerTable.quantity, quantity)
+        )
       );
 
     return NextResponse.json({ message: "Item deleted successfully." });
