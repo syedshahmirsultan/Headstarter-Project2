@@ -13,13 +13,13 @@ import { ReactNode } from "react"
   return (
     <Dialog>
       <DialogTrigger asChild>
-      <button className="mt-8 md:mt-16 h-12 w-[300px] p-2 md:m-0 md:w-[600px] rounded-md bg-purple-700 text-white font-semibold text-md hover:bg-purple-600">
+      <button className="mt-8 md:mt-16 h-12 w-[300px] p-2 md:m-0 md:w-[700px] rounded-md bg-blue-700 text-white font-semibold text-md md:text-lg hover:bg-blue-600">
         Add New Item
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-purple-700">Add New Task</DialogTitle>
+          <DialogTitle className="text-2xl font-bold text-blue-700">Add New Task</DialogTitle>
         
         </DialogHeader>
         <form className="grid gap-4 py-4">
@@ -48,7 +48,7 @@ import { ReactNode } from "react"
           </div>
         </form>
         <DialogFooter>
-          <button type="submit" className="self-center flex items-center justify-center bg-purple-700 hover:bg-purple-600 text-white text-md font-medium h-10 w-32  rounded-md">Submit</button>
+          <button type="submit" className="self-center flex items-center justify-center bg-blue-700 hover:bg-blue-600 text-white text-md font-medium h-10 w-32  rounded-md">Submit</button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
