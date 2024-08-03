@@ -13,7 +13,7 @@ import { ReactNode } from "react"
   return (
     <Dialog>
       <DialogTrigger asChild>
-      <button className="mt-8 md:mt-16 h-12 w-[300px] p-2 md:m-0 md:w-[850px] rounded-md bg-blue-700 text-white font-semibold text-md md:text-xl hover:bg-blue-600">
+      <button className="mt-8 md:mt-16 h-12 w-[330px] p-2 md:m-0 md:w-[850px] rounded-md bg-blue-700 text-white font-semibold text-md md:text-xl hover:bg-blue-600">
         Add New Item
         </button>
       </DialogTrigger>

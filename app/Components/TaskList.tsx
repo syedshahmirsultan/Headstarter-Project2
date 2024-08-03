@@ -3,7 +3,7 @@ import DeleteDialog from "./DeleteDialog";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const data = [
-  { item: "polymorphism ", quantity: "1" },
+  { item: "Apple", quantity: "1" },
   { item: "item 2", quantity: "1" },
   { item: "item 3", quantity: "1" },
 ];
