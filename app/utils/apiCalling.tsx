@@ -1,16 +1,21 @@
+// utils/apiCalling.ts
 
+import { dataType } from "@/types";
 
-export default async function getAllItemsByUserid(userid:string|undefined){
-const res = await fetch(`http://localhost:3000/api/crud?userid=${userid}`,{
-    cache:"no-store"
-})
-
-if(!res.ok){
-    return "Error"
+export default async function getAllItemsByUserid(userid: string | undefined): Promise<dataType[]> {
+  try {
+    const res = await fetch(`http://localhost:3000/api/items?userid=${userid}`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch items");
+    }
+    const data: dataType[] = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return []; 
+  }
 }
 
-res.json();
-}
 
 export async function addItem(userid:string|undefined,item:string,quantity:number){
     const payload = {

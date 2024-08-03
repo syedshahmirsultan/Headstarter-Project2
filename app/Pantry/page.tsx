@@ -11,7 +11,7 @@ import { dataType } from "@/types";
 export default async function Pantry() {
   const {getUser} = getKindeServerSession();
   const user:KindeUser|null = await getUser();
-  const itemData:Array<dataType> = await getAllItemsByUserid(user?.id);
+  const itemData = await getAllItemsByUserid(user?.id);
   return (
     <div className="w-full">
     { user ?  (
@@ -25,3 +25,4 @@ export default async function Pantry() {
    </div></div>
   );
 }
+
