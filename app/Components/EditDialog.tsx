@@ -22,8 +22,8 @@ function EditDialog({ user, item, quantity,itemid }: { user: KindeUser | null; i
     e.preventDefault();
       await editItem({
         userid :user?.id,
-        items: item,
-        quantity: quantity,
+        items: itemName,
+        quantity: itemQuantity,
       itemid:itemid});
       
       setItemName("");

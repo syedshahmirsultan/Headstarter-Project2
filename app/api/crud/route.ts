@@ -26,26 +26,16 @@ export async function GET(request: NextRequest) {
 export async function POST(req:NextRequest){
  const body = await req.json();
 
- const alreadyItem = await db.select().from(pantryTrackerTable).where(and(eq(pantryTrackerTable.userid,body.userid)
- ,eq(pantryTrackerTable.itemid,body.itemid),eq(pantryTrackerTable.quantity,body.quantity)))
-
-   if(alreadyItem.length > 0){
-    const updatedData = {
-      userid :body.userid,
-      items:body.items,
-      itemid:body.itemid,
-      quantity:body.quantity as number + 1
-    }
-
-    await db.update(pantryTrackerTable).set(updatedData).where(and(eq(pantryTrackerTable.userid,body.userid),eq(pantryTrackerTable.itemid,body.itemid),eq(pantryTrackerTable.quantity,body.quantity)));
-   }
-
-   else {      
+ console.log("POST itemid:",body.itemid)  
     const Data = await db.insert(pantryTrackerTable).values(body).returning();
         return NextResponse.json(Data) 
-    } 
+ 
 }
 
+//POST ITEMID
+//e1605535-eec2-474e-9075-7ddcd17bb925
+//PUT ITEMID
+//e1605535-eec2-474e-9075-7ddcd17bb925
 
 
 
@@ -58,12 +48,11 @@ export async function PUT(req: NextRequest) {
     quantity: body.quantity
   };
   
+  console.log("Itemid :",body.itemid);
   const data = await db.update(pantryTrackerTable)
     .set(payload)
     .where(and(eq(pantryTrackerTable.userid, body.userid), eq(pantryTrackerTable.itemid,body.itemid)))
     ;
-
-   
 
   console.log("Successfully done!", data);
 
