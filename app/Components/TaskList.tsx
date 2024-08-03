@@ -23,7 +23,7 @@ function TaskList({ user, itemData }: { user: KindeUser | null; itemData: Array<
           </tr>
         </thead>
         <tbody className="w-full h-auto mt-4">
-          {itemData.map((item, index) => (
+          {itemDetail.map((item, index) => (
             <tr
               key={index}
               className="w-full h-12 border-b-2 border-sky-100 text-lg md:text-xl text-gray-950 font-medium"
@@ -31,8 +31,8 @@ function TaskList({ user, itemData }: { user: KindeUser | null; itemData: Array<
               <td className="p-1 md:p-3 flex items-center justify-center ">{item.items}</td>
               <td className="p-1 md:p-3 text-center">{item.quantity}</td>
               <td className="p-1 md:p-3 flex items-center justify-center gap-x-2">
-                <EditDialog user={user} item={item.items} quantity={item.quantity} />
-                <DeleteDialog user={user} item={item.items} quantity={item.quantity} />
+                <EditDialog user={user} item={item.items} quantity={item.quantity} itemid={item.itemid} />
+                <DeleteDialog user={user} item={item.items} quantity={item.quantity} itemid={item.itemid} />
               </td>
             </tr>
           ))}
@@ -43,3 +43,7 @@ function TaskList({ user, itemData }: { user: KindeUser | null; itemData: Array<
 }
 
 export default TaskList;
+
+
+
+

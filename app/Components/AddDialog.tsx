@@ -1,4 +1,6 @@
 "use client";
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   Dialog,
   DialogContent,
@@ -19,7 +21,12 @@ function AddDialog({ user }: { user: KindeUser | null }) {
 
   const handleAddItem: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    await addItem(user?.id, newTask, quantity);
+    await addItem({
+      userid :user?.id,
+      items: newTask,
+      quantity: quantity,
+    itemid:uuidv4()});
+    
     setNewTask("");
     setQuantity(1);
     router.refresh();

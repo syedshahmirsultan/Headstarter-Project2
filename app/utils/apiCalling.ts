@@ -16,11 +16,21 @@ export default async function getAllItemsByUserid(userid: string | undefined): P
 }
 
 
-export async function addItem(userid:string|undefined,item:string,quantity:number){
+export async function addItem({
+  userid,
+  items,
+  quantity,
+  itemid
+}: {
+  userid: string | undefined;
+  items: string
+  quantity: number
+  itemid: string}) {
     const payload = {
     userid :userid,
-    items:item,
-    quantity:quantity
+    items:items,
+    quantity:quantity,
+    itemid: itemid
     }
  const res = await fetch(`http://localhost:3000/api/crud/`,{
     method:"POST",
@@ -50,10 +60,21 @@ export async function addItem(userid:string|undefined,item:string,quantity:numbe
 
 // return "Okay"
 // }
-export async function editItem(userid: string | undefined, item: string, quantity: number) {
+export async function editItem({
+  userid,
+  items,
+  quantity,
+  itemid
+}: {
+  userid: string | undefined;
+  items: string
+  quantity: number
+  itemid: string}) {
+
   const payload = {
     userid: userid,
-    items: item,
+    items: items,
+    itemid:itemid,
     quantity: quantity
   };
   console.log("Edit Payload:", payload);
@@ -71,8 +92,17 @@ export async function editItem(userid: string | undefined, item: string, quantit
 
 
 
-export async function deleteItem(userid:string|undefined,item:string,quantity:number){
- const res = await fetch(`http://localhost:3000/api/crud/?userid=${userid}&item=${item}&quantity=${quantity}`,{
+export async function deleteItem({
+  userid,
+  items,
+  quantity,
+  itemid
+}: {
+  userid: string | undefined;
+  items: string
+  quantity: number
+  itemid: string}){
+ const res = await fetch(`http://localhost:3000/api/crud/?userid=${userid}&itemid=${itemid}&items=${items}&quantity=${quantity}`,{
     method: "DELETE"
     
  })

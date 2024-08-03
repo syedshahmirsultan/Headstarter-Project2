@@ -17,12 +17,16 @@ import { deleteItem } from "../utils/apiCalling";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import { useRouter } from "next/navigation";
 
-function DeleteDialog({ user, item, quantity }: { user: KindeUser | null; item: string; quantity: number }) {
+function DeleteDialog({ user, item, quantity,itemid }: { user: KindeUser | null; item: string; quantity: number, itemid:string }) {
   const router = useRouter();
   
   const handleDelete: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    await deleteItem(user?.id, item, quantity);
+    await deleteItem({
+      userid :user?.id,
+      items: item,
+      quantity: quantity,
+    itemid:itemid});
     router.refresh();
   };
   

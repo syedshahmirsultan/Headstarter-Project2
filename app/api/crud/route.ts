@@ -81,9 +81,10 @@ export async function DELETE(request: NextRequest) {
     const url = request.nextUrl.searchParams;
     const userid = url.get('userid');
     const items = url.get('items');
+    const itemid = url.get('itemid');
     const quantityStr = url.get('quantity');
 
-    if (!userid || !items || !quantityStr) {
+    if (!userid || !items || !quantityStr ||!itemid) {
       return NextResponse.json({ message: "Userid, item, or quantity not provided!" }, { status: 400 });
     }
 
@@ -99,6 +100,7 @@ export async function DELETE(request: NextRequest) {
         and(
           eq(pantryTrackerTable.userid, userid),
           eq(pantryTrackerTable.items, items),
+          eq(pantryTrackerTable.itemid, itemid),
           eq(pantryTrackerTable.quantity, quantity)
         )
       );

@@ -13,14 +13,19 @@ import { FiEdit } from "react-icons/fi";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import { editItem } from "../utils/apiCalling";
 
-function EditDialog({ user, item, quantity }: { user: KindeUser | null; item: string; quantity: number }) {
+function EditDialog({ user, item, quantity,itemid }: { user: KindeUser | null; item: string; quantity: number, itemid:string }) {
   const [itemName, setItemName] = useState(item);
   const [itemQuantity, setItemQuantity] = useState(quantity);
   const router = useRouter();
 
   const handleEditItem: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-      await editItem(user?.id, itemName, itemQuantity);
+      await editItem({
+        userid :user?.id,
+        items: item,
+        quantity: quantity,
+      itemid:itemid});
+      
       setItemName("");
       setItemQuantity(1);
       router.refresh(); 
