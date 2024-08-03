@@ -5,7 +5,6 @@ import  Link  from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import getAllItemsByUserid from "../utils/apiCalling";
-import { dataType } from "@/types";
 
 
 export default async function Pantry() {

@@ -4,7 +4,7 @@ import { dataType } from "@/types";
 
 export default async function getAllItemsByUserid(userid: string | undefined): Promise<dataType[]> {
   try {
-    const res = await fetch(`http://localhost:3000/api/items?userid=${userid}`);
+    const res = await fetch(`http://localhost:3000/api/crud/?userid=${userid}`);
     if (!res.ok) {
       throw new Error("Failed to fetch items");
     }
@@ -23,7 +23,7 @@ export async function addItem(userid:string|undefined,item:string,quantity:numbe
     item:item,
     quantity:quantity
     }
- const res = await fetch(`http://localhost:3000/api/crud`,{
+ const res = await fetch(`http://localhost:3000/api/crud/`,{
     method:"POST",
     headers: {
         "Content-Type": "application/json"
@@ -35,7 +35,7 @@ export async function addItem(userid:string|undefined,item:string,quantity:numbe
 
 
 export async function editItem(userid:string|undefined,item:string,quantity:number){
-const res = await fetch(`http://localhost:3000/api/crud`,{
+const res = await fetch(`http://localhost:3000/api/crud/`,{
     method:"PUT",
     headers:{
     "Content-Type": "application/json"
@@ -52,7 +52,7 @@ return "Okay"
 
 
 export async function deleteItem(userid:string|undefined,item:string,quantity:number){
- const res = await fetch(`http://localhost:3000/api/crud?userid=${userid}&item=${item}&quantity=${quantity}`,{
+ const res = await fetch(`http://localhost:3000/api/crud/?userid=${userid}&item=${item}&quantity=${quantity}`,{
     method: "DELETE"
  })
 }

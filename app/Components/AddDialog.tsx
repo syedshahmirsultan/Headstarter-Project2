@@ -2,7 +2,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -24,7 +23,6 @@ import { addItem } from "../utils/apiCalling";
     setNewTask("");
     setQuantity(1);
     router.refresh();
- 
   }
   return (
     <Dialog>
