@@ -22,6 +22,7 @@ function EditDialog({ user, item, quantity }: { user: KindeUser | null; item: st
     e.preventDefault();
       await editItem(user?.id, itemName, itemQuantity);
       setItemName("");
+      setItemQuantity(1);
       router.refresh(); 
     
   };

@@ -7,7 +7,7 @@ const Home = async() => {
   const user = await getUser();
     return (
         <div className="w-full h-screen pt-40 md:pt-60 bg-gradient-to-r  from-black to-gray-950">
-        <h1 className='text-white font-bold text-3xl md:text-5xl flex justify-center items-center'>
+        <h1 className='text-white font-bold p-2 md:p-0 text-3xl md:text-5xl flex justify-center items-center'>
         Welcome to Shahmir Pantry Tracker !
         </h1>
 <div className='flex gap-x-4 justify-center'>

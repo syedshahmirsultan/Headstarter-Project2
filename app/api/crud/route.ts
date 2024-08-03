@@ -27,16 +27,17 @@ export async function POST(req:NextRequest){
  const body = await req.json();
 
  const alreadyItem = await db.select().from(pantryTrackerTable).where(and(eq(pantryTrackerTable.userid,body.userid)
- ,eq(pantryTrackerTable.items,body.items),eq(pantryTrackerTable.quantity,body.quantity)))
+ ,eq(pantryTrackerTable.itemid,body.itemid),eq(pantryTrackerTable.quantity,body.quantity)))
 
    if(alreadyItem.length > 0){
     const updatedData = {
       userid :body.userid,
       items:body.items,
+      itemid:body.itemid,
       quantity:body.quantity as number + 1
     }
 
-    await db.update(pantryTrackerTable).set(updatedData).where(and(eq(pantryTrackerTable.userid,body.userid),eq(pantryTrackerTable.items,body.items),eq(pantryTrackerTable.quantity,body.quantity)));
+    await db.update(pantryTrackerTable).set(updatedData).where(and(eq(pantryTrackerTable.userid,body.userid),eq(pantryTrackerTable.itemid,body.itemid),eq(pantryTrackerTable.quantity,body.quantity)));
    }
 
    else {      
@@ -48,40 +49,30 @@ export async function POST(req:NextRequest){
 
 
 
-// export async function PUT(req:NextRequest){
-//   const body = await req.json()
-//   const data = await db.update(pantryTrackerTable).set(body).where(
-//     and(eq(pantryTrackerTable.userid,body.userid),
-//         eq(pantryTrackerTable.items,body.items),eq(pantryTrackerTable.quantity,body.quantity)
-// )
-// );
-
-// return NextResponse.json(data);
-
-
-// }
-
-
-
 export async function PUT(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const { userid, items, quantity } = body;
+  const body = await req.json();
+  const payload = {
+    userid: body.userid,
+    items: body.items,
+    itemid:body.itemid,
+    quantity: body.quantity
+  };
+  
+  const data = await db.update(pantryTrackerTable)
+    .set(payload)
+    .where(and(eq(pantryTrackerTable.userid, body.userid), eq(pantryTrackerTable.itemid,body.itemid)))
+    ;
 
-    const data = await db.update(pantryTrackerTable)
-      .set({ items, quantity })
-      .where(
-        and(
-          eq(pantryTrackerTable.userid, userid),
-          eq(pantryTrackerTable.items, items)
-        )
-      );
+   
 
-    return NextResponse.json({ message: 'Item updated successfully', data });
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to update item' }, { status: 500 });
-  }
+  console.log("Successfully done!", data);
+
+  return NextResponse.json(data);
 }
+
+
+
+
 
 
 
