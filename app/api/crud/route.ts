@@ -26,17 +26,10 @@ export async function GET(request: NextRequest) {
 export async function POST(req:NextRequest){
  const body = await req.json();
 
- console.log("POST itemid:",body.itemid)  
     const Data = await db.insert(pantryTrackerTable).values(body).returning();
         return NextResponse.json(Data) 
  
 }
-
-//POST ITEMID
-//e1605535-eec2-474e-9075-7ddcd17bb925
-//PUT ITEMID
-//e1605535-eec2-474e-9075-7ddcd17bb925
-
 
 
 export async function PUT(req: NextRequest) {
@@ -48,14 +41,10 @@ export async function PUT(req: NextRequest) {
     quantity: body.quantity
   };
   
-  console.log("Itemid :",body.itemid);
   const data = await db.update(pantryTrackerTable)
     .set(payload)
     .where(and(eq(pantryTrackerTable.userid, body.userid), eq(pantryTrackerTable.itemid,body.itemid)))
     ;
-
-  console.log("Successfully done!", data);
-
   return NextResponse.json(data);
 }
 
@@ -77,7 +66,6 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ message: "Userid, item, or quantity not provided!" }, { status: 400 });
     }
 
-    // Convert quantity to a number
     const quantity = parseInt(quantityStr, 10);
     if (isNaN(quantity)) {
       return NextResponse.json({ message: "Invalid quantity!" }, { status: 400 });
